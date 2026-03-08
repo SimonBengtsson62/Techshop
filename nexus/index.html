@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS — Engineering Tomorrow</title>
+<link rel="stylesheet" href="css/main.css">
+<style>
+.hero{min-height:calc(100vh - 80px);display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:4rem 3rem 12rem;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 75% 50%,rgba(200,255,0,.05) 0%,transparent 70%);pointer-events:none;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at center,black 30%,transparent 80%);}
+.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--acid);}
+.hero-title{font-size:clamp(3.5rem,7vw,6.5rem);font-weight:800;line-height:.92;letter-spacing:-.03em;margin-bottom:1.8rem;}
+.hero-title .serif{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--acid);display:block;}
+.hero-desc{font-size:.98rem;line-height:1.75;color:var(--muted);max-width:440px;margin-bottom:2.5rem;}
+.hero-btns{display:flex;gap:1.2rem;align-items:center;}
+.hero-right{display:flex;justify-content:center;align-items:center;position:relative;z-index:2;}
+.orb-wrap{position:relative;width:400px;height:400px;}
+.orb{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:240px;height:240px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(200,255,0,.22) 0%,rgba(200,255,0,.06) 50%,transparent 100%);border:1px solid rgba(200,255,0,.15);animation:orbPulse 4s ease-in-out infinite;box-shadow:0 0 80px rgba(200,255,0,.07);}
+.ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotateX(70deg);border-radius:50%;border:1px solid rgba(200,255,0,.12);animation:ringRot linear infinite;}
+.ring:nth-child(1){width:300px;height:300px;animation-duration:12s;}
+.ring:nth-child(2){width:360px;height:360px;animation-duration:20s;animation-direction:reverse;border-color:rgba(200,255,0,.07);}
+.ring:nth-child(3){width:400px;height:400px;animation-duration:28s;border-color:rgba(200,255,0,.04);}
+.ring-dot{position:absolute;top:-3px;left:calc(50% - 3px);width:6px;height:6px;background:var(--acid);border-radius:50%;box-shadow:0 0 8px var(--acid);}
+@keyframes orbPulse{0%,100%{box-shadow:0 0 80px rgba(200,255,0,.07)}50%{box-shadow:0 0 120px rgba(200,255,0,.14)}}
+@keyframes ringRot{from{transform:translate(-50%,-50%) rotateX(70deg) rotateZ(0)}to{transform:translate(-50%,-50%) rotateX(70deg) rotateZ(360deg)}}
+.stats-bar{position:absolute;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(4,1fr);background:var(--dim);border-top:1px solid var(--border);}
+.stat{padding:1.6rem 2.5rem;border-right:1px solid var(--border);}
+.stat:last-child{border-right:none;}
+.stat-num{font-size:2rem;font-weight:800;letter-spacing:-.04em;line-height:1;}
+.stat-num span{color:var(--acid);}
+.stat-label{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.3rem;}
+.clients-row{display:flex;gap:3rem;align-items:center;flex-wrap:wrap;margin-top:2.5rem;}
+.client-logo{font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);opacity:.4;transition:opacity .2s;cursor:none;}
+.client-logo:hover{opacity:1;}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:3.5rem;}
+.svc{background:var(--black);padding:2.2rem;position:relative;overflow:hidden;cursor:none;transition:background .3s;}
+.svc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--acid);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.svc:hover{background:var(--dim);}
+.svc:hover::after{transform:scaleX(1);}
+.svc-num{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--acid);letter-spacing:.12em;margin-bottom:2.5rem;}
+.svc-icon{font-size:1.8rem;margin-bottom:1.2rem;}
+.svc-name{font-size:1.15rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.8rem;}
+.svc-desc{font-size:.86rem;line-height:1.7;color:var(--muted);}
+.work-grid{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:1px;background:var(--border);min-height:520px;}
+.wcard{background:var(--card);position:relative;overflow:hidden;cursor:none;transition:background .3s;}
+.wcard:first-child{grid-row:span 2;}
+.wcard-inner{padding:2.5rem;height:100%;display:flex;flex-direction:column;justify-content:space-between;min-height:220px;}
+.wcard:first-child .wcard-inner{min-height:520px;}
+.wcard-glow{position:absolute;inset:0;opacity:0;transition:opacity .4s;}
+.wcard:nth-child(1) .wcard-glow{background:radial-gradient(circle at 30% 70%,rgba(200,255,0,.05),transparent 60%);}
+.wcard:nth-child(2) .wcard-glow{background:radial-gradient(circle at 70% 30%,rgba(100,200,255,.05),transparent 60%);}
+.wcard:nth-child(3) .wcard-glow{background:radial-gradient(circle at 50% 50%,rgba(255,120,200,.05),transparent 60%);}
+.wcard:hover .wcard-glow{opacity:1;}
+.wcard:hover{background:#161616;}
+.wcard-tag{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acid);}
+.wcard-title{font-size:1.5rem;font-weight:800;letter-spacing:-.03em;line-height:1.08;position:relative;z-index:1;}
+.wcard:first-child .wcard-title{font-size:2rem;}
+.wcard-meta{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:.8rem;}
+.wcard-arrow{position:absolute;top:2rem;right:2rem;font-size:1.2rem;color:var(--muted);transition:color .2s,transform .2s;z-index:1;}
+.wcard:hover .wcard-arrow{color:var(--acid);transform:translate(3px,-3px);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
+.testi{background:var(--card);border:1px solid var(--border);padding:2rem;transition:border-color .3s;}
+.testi:hover{border-color:var(--border-acid);}
+.testi-text{font-size:.88rem;line-height:1.8;color:var(--muted);font-style:italic;margin-bottom:1.5rem;}
+.testi-author{display:flex;align-items:center;gap:1rem;}
+.testi-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--acid),rgba(200,255,0,.3));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.78rem;color:var(--black);flex-shrink:0;}
+.testi-name{font-weight:700;font-size:.88rem;}
+.testi-role{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.08em;}
+.cta-band{background:var(--acid);padding:4rem 3rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;}
+.cta-band-title{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;letter-spacing:-.04em;color:var(--black);}
+.cta-band-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;}
+.cta-band-sub{font-size:.88rem;color:rgba(0,0,0,.6);margin-top:.4rem;}
+.btn-dark{background:var(--black);color:var(--acid);padding:.9rem 2rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:none;transition:transform .2s,box-shadow .2s;display:inline-block;}
+.btn-dark:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3);}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding:2rem 1.5rem 10rem;}.hero-right{display:none;}.stats-bar{grid-template-columns:1fr 1fr;}.services-grid{grid-template-columns:1fr;}.work-grid{grid-template-columns:1fr;grid-template-rows:auto;}.wcard:first-child{grid-row:unset;}.testi-grid{grid-template-columns:1fr;}.cta-band{flex-direction:column;}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="index.html" class="nav-logo">NEX<span>.</span>US</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="pages/about.html">About</a></li>
+    <li><a href="pages/services.html">Services</a></li>
+    <li><a href="pages/pricing.html">Pricing</a></li>
+    <li><a href="pages/work.html">Work</a></li>
+    <li><a href="pages/blog.html">Blog</a></li>
+    <li><a href="pages/careers.html">Careers</a></li>
+    <li><a href="pages/contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-mobile-toggle" id="navToggle">☰</button>
+</nav>
+<div class="page">
+<section class="hero">
+  <div class="hero-bg"></div><div class="hero-grid"></div>
+  <div style="position:relative;z-index:2;">
+    <div class="hero-eyebrow">Est. 2019 — San Francisco, CA</div>
+    <h1 class="hero-title">We Build<span class="serif">software</span>that scales</h1>
+    <p class="hero-desc">Nexus is a deep-tech engineering studio. We design, architect, and ship products that define categories — from zero to IPO and beyond.</p>
+    <div class="hero-btns">
+      <a href="pages/work.html" class="btn btn-acid">See our work</a>
+      <a href="pages/contact.html" class="btn btn-ghost">Talk to us →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="orb-wrap">
+      <div class="ring"><div class="ring-dot"></div></div>
+      <div class="ring"></div><div class="ring"></div>
+      <div class="orb"></div>
+    </div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-num">120<span>+</span></div><div class="stat-label">Projects shipped</div></div>
+    <div class="stat"><div class="stat-num">$2<span>B</span></div><div class="stat-label">Client valuation</div></div>
+    <div class="stat"><div class="stat-num">48</div><div class="stat-label">Team members</div></div>
+    <div class="stat"><div class="stat-num">6<span>yr</span></div><div class="stat-label">Deep expertise</div></div>
+  </div>
+</section>
+<div class="marquee-wrap"><div class="marquee-track">
+  <span class="marquee-item">Full-Stack Engineering</span><span class="marquee-item"><b>◆</b></span>
+  <span class="marquee-item">AI & Machine Learning</span><span class="marquee-item"><b>◆</b></span>
+  <span class="marquee-item">Cloud Architecture</span><span class="marquee-item"><b>◆</b></span>
+  <span class="marquee-item">Product Design</span><span class="marquee-item"><b>◆</b></span>
+  <span class="marquee-item">DevOps & Infrastructure</span><span class="marquee-item"><b>◆</b></span>
+  <span class="marquee-item">Security & Compliance</span><span class="marquee-item"><b>◆</b></span>
+  <span class="marquee-item">Full-Stack Engineering</span><span class="marquee-item"><b>◆</b></span>
+  <span class="marquee-item">AI & Machine Learning</span><span class="marquee-item"><b>◆</b></span>
+  <span class="marquee-item">Cloud Architecture</span><span class="marquee-item"><b>◆</b></span>
+  <span class="marquee-item">Product Design</span><span class="marquee-item"><b>◆</b></span>
+  <span class="marquee-item">DevOps & Infrastructure</span><span class="marquee-item"><b>◆</b></span>
+  <span class="marquee-item">Security & Compliance</span><span class="marquee-item"><b>◆</b></span>
+</div></div>
+<section class="section" style="padding-bottom:2rem;">
+  <div class="label reveal">Trusted by industry leaders</div>
+  <div class="clients-row reveal">
+    <span class="client-logo">Finterra AI</span><span class="client-logo">MediFlow</span>
+    <span class="client-logo">StreamOps</span><span class="client-logo">Orbix Finance</span>
+    <span class="client-logo">Quantum Labs</span><span class="client-logo">NovaTech</span><span class="client-logo">Prismatic</span>
+  </div>
+</section>
+<hr class="divider" style="margin:0 3rem;">
+<section class="section">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1rem;" class="reveal">
+    <div><div class="label">What we do</div><h2 class="section-title">Our <em>capabilities</em></h2></div>
+    <a href="pages/services.html" class="btn btn-ghost" style="white-space:nowrap;">View all →</a>
+  </div>
+  <div class="services-grid">
+    <div class="svc reveal reveal-d1"><div class="svc-num">01</div><div class="svc-icon">⬡</div><div class="svc-name">Product Engineering</div><p class="svc-desc">End-to-end product development from architecture to deployment. We own the full lifecycle.</p></div>
+    <div class="svc reveal reveal-d2"><div class="svc-num">02</div><div class="svc-icon">◈</div><div class="svc-name">AI & Data Systems</div><p class="svc-desc">Custom ML pipelines, LLM integrations, and intelligent automation at scale.</p></div>
+    <div class="svc reveal reveal-d3"><div class="svc-num">03</div><div class="svc-icon">⬟</div><div class="svc-name">Cloud & Platform</div><p class="svc-desc">Scalable infrastructure on AWS, GCP, and Azure. Zero-downtime, multi-region.</p></div>
+    <div class="svc reveal reveal-d1"><div class="svc-num">04</div><div class="svc-icon">◉</div><div class="svc-name">Design Systems</div><p class="svc-desc">Component libraries and design tokens that scale across products consistently.</p></div>
+    <div class="svc reveal reveal-d2"><div class="svc-num">05</div><div class="svc-icon">⬠</div><div class="svc-name">Security & Compliance</div><p class="svc-desc">SOC2, HIPAA, GDPR — we architect for compliance from day one.</p></div>
+    <div class="svc reveal reveal-d3"><div class="svc-num">06</div><div class="svc-icon">◎</div><div class="svc-name">Growth Engineering</div><p class="svc-desc">Experimentation frameworks, analytics pipelines, and performance optimization.</p></div>
+  </div>
+</section>
+<section class="section" style="background:var(--dim);padding-top:6rem;padding-bottom:6rem;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;" class="reveal">
+    <div><div class="label">Selected work</div><h2 class="section-title">Recent <em>projects</em></h2></div>
+    <a href="pages/work.html" class="btn btn-ghost">All case studies →</a>
+  </div>
+  <div class="work-grid">
+    <a href="pages/work.html" style="text-decoration:none;color:inherit;display:contents;">
+    <div class="wcard reveal"><div class="wcard-glow"></div><div class="wcard-inner"><div class="wcard-tag">AI Platform · Series B</div><div><div class="wcard-title">Rebuilding the intelligence layer for a $400M AI company</div><div class="wcard-meta">Finterra AI — 14 months — 8 engineers</div></div></div><div class="wcard-arrow">↗</div></div>
+    <div class="wcard reveal reveal-d1"><div class="wcard-glow"></div><div class="wcard-inner"><div class="wcard-tag">HealthTech · IPO</div><div><div class="wcard-title">HIPAA-compliant platform for 2M patients</div><div class="wcard-meta">MediFlow — 9 months</div></div></div><div class="wcard-arrow">↗</div></div>
+    <div class="wcard reveal reveal-d2"><div class="wcard-glow"></div><div class="wcard-inner"><div class="wcard-tag">Infrastructure · Seed→A</div><div><div class="wcard-title">Real-time data mesh: 50B events daily</div><div class="wcard-meta">StreamOps — 6 months</div></div></div><div class="wcard-arrow">↗</div></div>
+    </a>
+  </div>
+</section>
+<section class="section">
+  <div class="reveal"><div class="label">Client feedback</div><h2 class="section-title">What they <em>say</em></h2></div>
+  <div class="testi-grid">
+    <div class="testi reveal reveal-d1"><p class="testi-text">"Nexus didn't just build software — they redefined how our product team operates. Best engineering partner we've ever had."</p><div class="testi-author"><div class="testi-avatar">SC</div><div><div class="testi-name">Sarah Chen</div><div class="testi-role">CTO · Finterra AI</div></div></div></div>
+    <div class="testi reveal reveal-d2"><p class="testi-text">"Six months from zero to $12M ARR. Nexus built every layer — infra, backend, the works. Genuinely impressive team."</p><div class="testi-author"><div class="testi-avatar">MR</div><div><div class="testi-name">Marcus Reid</div><div class="testi-role">CEO · StreamOps</div></div></div></div>
+    <div class="testi reveal reveal-d3"><p class="testi-text">"They understand HIPAA compliance better than any vendor we've worked with. Delivered on time, under budget, zero incidents."</p><div class="testi-author"><div class="testi-avatar">AK</div><div><div class="testi-name">Aisha Kowalski</div><div class="testi-role">VP Engineering · MediFlow</div></div></div></div>
+  </div>
+</section>
+<div class="cta-band">
+  <div><div class="cta-band-title">Ready to build something <em>remarkable?</em></div><div class="cta-band-sub">We take 4–6 engagements per year. Spots fill fast.</div></div>
+  <a href="pages/contact.html" class="btn-dark">Start a project →</a>
+</div>
+<footer>
+  <div class="footer-grid">
+    <div><div class="footer-logo">NEX<span>.</span>US</div><p class="footer-tagline">A deep-tech engineering studio building software that defines industries.</p></div>
+    <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="pages/about.html">About</a></li><li><a href="pages/careers.html">Careers</a></li><li><a href="pages/blog.html">Blog</a></li><li><a href="pages/contact.html">Contact</a></li></ul></div>
+    <div><div class="footer-col-title">Services</div><ul class="footer-links"><li><a href="pages/services.html">Engineering</a></li><li><a href="pages/services.html">AI & Data</a></li><li><a href="pages/pricing.html">Pricing</a></li><li><a href="pages/work.html">Case Studies</a></li></ul></div>
+    <div><div class="footer-col-title">Connect</div><ul class="footer-links"><li><a href="mailto:hello@nexus.io">hello@nexus.io</a></li><li><a href="#">+1 (415) 000-0000</a></li><li><a href="#">San Francisco, CA</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Nexus Technologies Inc. All rights reserved.</div>
+    <div class="footer-socials"><a href="#">Twitter</a><a href="#">LinkedIn</a><a href="#">GitHub</a></div>
+  </div>
+</footer>
+</div>
+<script src="js/main.js"></script>
+</body>
+</html>
