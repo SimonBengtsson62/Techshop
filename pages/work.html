@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work — NEXUS</title>
+<link rel="stylesheet" href="../css/main.css">
+<style>
+.page-hero{padding:6rem 3rem 4rem;border-bottom:1px solid var(--border);background:var(--dim);position:relative;overflow:hidden;}
+.hero-inner-title{font-size:clamp(3rem,7vw,6rem);font-weight:800;letter-spacing:-.04em;line-height:.92;}
+.hero-inner-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--acid);}
+.filter-row{display:flex;gap:.75rem;flex-wrap:wrap;margin:3rem 0 2rem;}
+.filter-btn{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:.4rem 1rem;border:1px solid var(--border);color:var(--muted);background:none;cursor:none;transition:all .2s;}
+.filter-btn.active,.filter-btn:hover{border-color:var(--acid);color:var(--acid);}
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.case-card{background:var(--card);padding:3rem;position:relative;cursor:none;transition:background .3s;overflow:hidden;}
+.case-card.wide{grid-column:span 2;}
+.case-card:hover{background:#161616;}
+.case-glow{position:absolute;inset:0;opacity:0;transition:opacity .4s;pointer-events:none;}
+.case-card:hover .case-glow{opacity:1;}
+.case-tag-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+.case-title{font-size:1.8rem;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:1rem;}
+.case-card.wide .case-title{font-size:2.4rem;}
+.case-desc{font-size:.9rem;color:var(--muted);line-height:1.75;max-width:520px;margin-bottom:2rem;}
+.case-metrics{display:flex;gap:2.5rem;flex-wrap:wrap;}
+.metric{}.metric-val{font-size:1.8rem;font-weight:800;letter-spacing:-.03em;color:var(--acid);line-height:1;}
+.metric-lbl{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.2rem;}
+.case-tech-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.5rem;}
+.tech-pill{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.08em;color:var(--muted);border:1px solid var(--border);padding:.25rem .6rem;}
+.case-arrow{position:absolute;top:3rem;right:3rem;font-size:1.4rem;color:var(--muted);transition:color .2s,transform .2s;}
+.case-card:hover .case-arrow{color:var(--acid);transform:translate(4px,-4px);}
+@media(max-width:900px){.case-grid{grid-template-columns:1fr;}.case-card.wide{grid-column:span 1;}.case-card.wide .case-title{font-size:1.8rem;}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="../index.html" class="nav-logo">NEX<span>.</span>US</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-mobile-toggle" id="navToggle">☰</button>
+</nav>
+<div class="page">
+<section class="page-hero">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;"><span style="display:block;width:20px;height:1px;background:var(--acid);"></span>Case studies</div>
+  <h1 class="hero-inner-title">120+ projects.<br><em>Zero failures.</em></h1>
+  <p style="font-size:1rem;color:var(--muted);line-height:1.75;max-width:520px;margin-top:1.5rem;">Every project here shipped on time and within budget. These aren't cherry-picked — this is our complete record.</p>
+</section>
+
+<section class="section">
+  <div class="filter-row">
+    <button class="filter-btn active" data-filter="all">All work</button>
+    <button class="filter-btn" data-filter="ai">AI & Data</button>
+    <button class="filter-btn" data-filter="infra">Infrastructure</button>
+    <button class="filter-btn" data-filter="product">Product</button>
+    <button class="filter-btn" data-filter="health">HealthTech</button>
+    <button class="filter-btn" data-filter="fintech">FinTech</button>
+  </div>
+
+  <div class="case-grid" id="caseGrid">
+
+    <div class="case-card wide reveal" data-cat="ai fintech">
+      <div class="case-glow" style="background:radial-gradient(circle at 20% 80%,rgba(200,255,0,.06),transparent 60%);"></div>
+      <div class="case-tag-row"><span class="tag">AI Platform</span><span class="tag">Series B</span><span class="tag">FinTech</span></div>
+      <div class="case-title">Rebuilding the core intelligence layer for a $400M AI company</div>
+      <div class="case-desc">Finterra AI's original ML pipeline was hitting a wall at 10K requests/second and producing inconsistent results. We redesigned the entire inference stack, migrated to a multi-model architecture, and shipped a custom evaluation framework that reduced hallucination by 73%.</div>
+      <div class="case-metrics">
+        <div class="metric"><div class="metric-val">73%</div><div class="metric-lbl">Hallucination reduced</div></div>
+        <div class="metric"><div class="metric-val">40×</div><div class="metric-lbl">Throughput increase</div></div>
+        <div class="metric"><div class="metric-val">$400M</div><div class="metric-lbl">Company valuation</div></div>
+        <div class="metric"><div class="metric-val">14mo</div><div class="metric-lbl">Engagement length</div></div>
+      </div>
+      <div class="case-tech-row">
+        <span class="tech-pill">PyTorch</span><span class="tech-pill">Kubernetes</span><span class="tech-pill">AWS SageMaker</span>
+        <span class="tech-pill">Redis</span><span class="tech-pill">Go</span><span class="tech-pill">Pinecone</span>
+      </div>
+      <div class="case-arrow">↗</div>
+    </div>
+
+    <div class="case-card reveal reveal-d1" data-cat="health product">
+      <div class="case-glow" style="background:radial-gradient(circle at 70% 30%,rgba(100,200,255,.05),transparent 60%);"></div>
+      <div class="case-tag-row"><span class="tag">HealthTech</span><span class="tag">IPO Ready</span></div>
+      <div class="case-title">HIPAA-compliant patient platform serving 2M users</div>
+      <div class="case-desc">Built MediFlow's core product from scratch — patient records, scheduling, billing, and a provider portal — all compliant with HIPAA and ready for enterprise sales from day one.</div>
+      <div class="case-metrics">
+        <div class="metric"><div class="metric-val">2M+</div><div class="metric-lbl">Patients served</div></div>
+        <div class="metric"><div class="metric-val">0</div><div class="metric-lbl">Security incidents</div></div>
+      </div>
+      <div class="case-tech-row"><span class="tech-pill">React</span><span class="tech-pill">Node.js</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">AWS</span></div>
+      <div class="case-arrow">↗</div>
+    </div>
+
+    <div class="case-card reveal reveal-d2" data-cat="infra">
+      <div class="case-glow" style="background:radial-gradient(circle at 30% 70%,rgba(255,200,100,.05),transparent 60%);"></div>
+      <div class="case-tag-row"><span class="tag">Infrastructure</span><span class="tag">Seed→Series A</span></div>
+      <div class="case-title">Real-time event mesh processing 50B events daily</div>
+      <div class="case-desc">StreamOps needed to process and route 50 billion events per day with sub-10ms latency. We designed a multi-region Kafka topology, built custom consumer tooling, and cut their cloud bill by 58%.</div>
+      <div class="case-metrics">
+        <div class="metric"><div class="metric-val">50B</div><div class="metric-lbl">Events/day</div></div>
+        <div class="metric"><div class="metric-val">58%</div><div class="metric-lbl">Cloud cost saved</div></div>
+      </div>
+      <div class="case-tech-row"><span class="tech-pill">Kafka</span><span class="tech-pill">Go</span><span class="tech-pill">GCP</span><span class="tech-pill">Terraform</span></div>
+      <div class="case-arrow">↗</div>
+    </div>
+
+    <div class="case-card reveal" data-cat="fintech product">
+      <div class="case-glow" style="background:radial-gradient(circle at 50% 50%,rgba(200,150,255,.05),transparent 60%);"></div>
+      <div class="case-tag-row"><span class="tag">FinTech</span><span class="tag">Series A</span></div>
+      <div class="case-title">Payment infrastructure handling $2B in annual transactions</div>
+      <div class="case-desc">Orbix Finance needed a payments core that could handle $2B ARR with complete audit trails, multi-currency support, and PCI-DSS compliance. Built in 8 months.</div>
+      <div class="case-metrics">
+        <div class="metric"><div class="metric-val">$2B</div><div class="metric-lbl">Annual volume</div></div>
+        <div class="metric"><div class="metric-val">99.99%</div><div class="metric-lbl">Uptime</div></div>
+      </div>
+      <div class="case-tech-row"><span class="tech-pill">Rust</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">Stripe</span><span class="tech-pill">AWS</span></div>
+      <div class="case-arrow">↗</div>
+    </div>
+
+    <div class="case-card reveal reveal-d1" data-cat="ai product">
+      <div class="case-glow" style="background:radial-gradient(circle at 60% 40%,rgba(200,255,0,.04),transparent 60%);"></div>
+      <div class="case-tag-row"><span class="tag">AI</span><span class="tag">SaaS</span></div>
+      <div class="case-title">AI-powered code review tool: 0 to 12K developers in 6 months</div>
+      <div class="case-desc">Quantum Labs had a proof-of-concept that kept crashing above 100 concurrent users. We rebuilt the inference pipeline, added streaming, and designed a waitlist growth loop that drove viral adoption.</div>
+      <div class="case-metrics">
+        <div class="metric"><div class="metric-val">12K</div><div class="metric-lbl">Active developers</div></div>
+        <div class="metric"><div class="metric-val">6mo</div><div class="metric-lbl">Time to scale</div></div>
+      </div>
+      <div class="case-tech-row"><span class="tech-pill">Python</span><span class="tech-pill">FastAPI</span><span class="tech-pill">Anthropic API</span><span class="tech-pill">Redis</span></div>
+      <div class="case-arrow">↗</div>
+    </div>
+
+    <div class="case-card reveal reveal-d2" data-cat="infra product">
+      <div class="case-glow" style="background:radial-gradient(circle at 40% 60%,rgba(100,255,200,.04),transparent 60%);"></div>
+      <div class="case-tag-row"><span class="tag">Platform</span><span class="tag">Enterprise</span></div>
+      <div class="case-title">Developer platform serving 300 internal engineering teams</div>
+      <div class="case-desc">NovaTech needed an internal developer platform to standardize deployments across 300 teams. We built a Backstage-based portal with self-service cloud provisioning, CI/CD templates, and cost dashboards.</div>
+      <div class="case-metrics">
+        <div class="metric"><div class="metric-val">300</div><div class="metric-lbl">Teams onboarded</div></div>
+        <div class="metric"><div class="metric-val">4×</div><div class="metric-lbl">Deploy frequency</div></div>
+      </div>
+      <div class="case-tech-row"><span class="tech-pill">Backstage</span><span class="tech-pill">Kubernetes</span><span class="tech-pill">ArgoCD</span><span class="tech-pill">Azure</span></div>
+      <div class="case-arrow">↗</div>
+    </div>
+
+  </div>
+</section>
+
+<div style="background:var(--acid);padding:4rem 3rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;">
+  <div>
+    <div style="font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;letter-spacing:-.04em;color:var(--black);">Your project <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;">next?</em></div>
+    <div style="font-size:.88rem;color:rgba(0,0,0,.6);margin-top:.4rem;">Tell us what you're building. We'll tell you if we're the right fit.</div>
+  </div>
+  <a href="contact.html" style="background:var(--black);color:var(--acid);padding:.9rem 2rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:none;transition:transform .2s;display:inline-block;">Start a project →</a>
+</div>
+<footer>
+  <div class="footer-grid">
+    <div><div class="footer-logo">NEX<span>.</span>US</div><p class="footer-tagline">A deep-tech engineering studio building software that defines industries.</p></div>
+    <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="careers.html">Careers</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><div class="footer-col-title">Services</div><ul class="footer-links"><li><a href="services.html">Engineering</a></li><li><a href="services.html">AI & Data</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="work.html">Case Studies</a></li></ul></div>
+    <div><div class="footer-col-title">Connect</div><ul class="footer-links"><li><a href="mailto:hello@nexus.io">hello@nexus.io</a></li><li><a href="#">+1 (415) 000-0000</a></li><li><a href="#">San Francisco, CA</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Nexus Technologies Inc. All rights reserved.</div>
+    <div class="footer-socials"><a href="#">Twitter</a><a href="#">LinkedIn</a><a href="#">GitHub</a></div>
+  </div>
+</footer>
+</div>
+<script src="../js/main.js"></script>
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.case-card').forEach(card=>{
+      if(f==='all'||card.dataset.cat.includes(f)){card.style.display='';} else {card.style.display='none';}
+    });
+  });
+});
+</script>
+</body>
+</html>
